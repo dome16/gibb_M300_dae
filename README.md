@@ -3,6 +3,9 @@ GIBB Modul M300
 
 Adding SSH Key to System
 
-ssh-copy-id <ip address>
+ssh-copy-id ip_address
+  
+  
+  
 
 Reverse Zone smartlearn.lan is not working
