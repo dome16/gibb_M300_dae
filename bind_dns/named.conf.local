@@ -1,0 +1,29 @@
+//
+// Do any local configuration here
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";
+
+zone "smartlearn.lan" {
+	type master;
+	file "/etc/bind/db.smartlearn.lan";
+};
+
+zone "smartlearn.dmz" {
+	type master;
+	file "/etc/bind/db.smartlearn.dmz";
+};
+
+zone "210.168.192.in-addr.arpa" {
+        type master;
+        file "/etc/bind/db.192.168.210";
+};
+
+zone "220.168.192.in-addr.arpa" {
+        type master;
+        file "/etc/bind/db.192.168.220";
+};
+
+

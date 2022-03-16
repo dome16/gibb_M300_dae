@@ -1,0 +1,10 @@
+$TTL    604800
+@       IN      SOA     vmls3.smartlearn.dmz. root.smartlearn.dmz. (
+                              2         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@       IN      NS      vmls3.
+13      IN      PTR     vmls3.smartlearn.dmz.

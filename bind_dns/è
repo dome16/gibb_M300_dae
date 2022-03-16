@@ -1,0 +1,12 @@
+$TTL    86400
+@	IN	SOA	(
+		vmls3.smartlearn.dmz.
+		root.smartlearn.dmz.
+		20220223
+		
+                8H      ; Refresh
+                2H      ; Retry
+                4W      ; Expire
+		3H )    ; TTL Negative Cache
+@	IN	NS	vmls3.smartlearn.dmz.
+vmlp1	IN	A	192.168.210.31

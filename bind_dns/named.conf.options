@@ -1,0 +1,31 @@
+acl goodclients { // Name kann frei gewählt werden
+ 192.168.220.0/24;  	
+ 192.168.210.0/24;	// Lokales Netz (IP-Adressbereich anpassen)
+ localhost;       	// localhost sollte immer eingetragen sein
+ localnets;
+};
+
+options {
+	directory "/var/cache/bind";
+
+	// If there is a firewall between you and nameservers you want
+	// to talk to, you may need to fix the firewall to allow multiple
+	// ports to talk.  See http://www.kb.cert.org/vuls/id/800113
+
+	forwarders {
+	 	10.9.4.12;
+	};
+
+	allow-query { goodclients; };
+
+	dnssec-validation auto;
+
+	listen-on-v6 { any; };
+
+	listen-on { 127.0.0.1; 192.168.220.13; };	
+
+	allow-recursion {
+		192.168.210.0/24;
+		192.168.220.0/24;
+	};
+};
