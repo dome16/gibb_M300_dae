@@ -14,4 +14,5 @@ mkfs.ext4 /dev/sdb1       //mkfs.<dateiformat>  /dev/<sd**>
 mkdir www
 
 ### /etc/fstab Bearbeiten für das Permanente mounten ###
+/dev/sdb1 /www ext4 defaults 1 2
 mount -a
