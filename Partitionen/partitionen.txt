@@ -1,1 +1,18 @@
-test 123
+### Disk Partition Hinzufügen ###
+
+fdisk /dev/sdb
+n   --> Enter
+p   --> Enter
+1   --> Enter
+1   --> Enter
+130 --> Enter
+w   --> Enter
+
+### Partition Formatieren ###
+mkfs.ext4 /dev/sdb1       //mkfs.<dateiformat>  /dev/<sd**>
+
+### Ordner für das Mounten erstellen ###
+mkdir www
+
+### /etc/fstab Bearbeiten für das Permanente mounten ###
+mount -a
