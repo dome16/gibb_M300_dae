@@ -41,3 +41,10 @@ der Key befindet sich nun im /home/vmadmin/.ssh
 ###    ###   ###   ###   ###
 
 ssh-copy-id -i ~/.ssh/id_rsa.pub vmadmin@<ip>
+
+/usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/home/vmadmin/.ssh/id_rsa.pub"       
+The authenticity of host '192.168.220.13 (192.168.220.13)' can't be established.
+ECDSA key fingerprint is SHA256:ZaiwK3jAtUShyuBXjZxZvLhod3iMexnR3hWc5usQw7w.
+Are you sure you want to continue connecting (yes/no/[fingerprint])?
+
+// yes eintippen und Enter, Falls die Verbindung nich funktioniert das Netz nicht richtig.
