@@ -1,0 +1,23 @@
+sudo apt -y install apache2
+cd /etc/apache2/sites-available/
+
+sudo touch www.smartlearn.dmz.conf
+
+// Folgenden Text ergänzen
+<VirtualHost *:80>
+	ServerAdmin webmaster@localhost
+	ServerName vmls3.smartlearn.dmz
+	ServerAlias www.smartlearn.dmz
+	DocumentRoot /www/www.smartlearn.dmz
+	<Directory /www/www.smartlearn.dmz>
+		Options Indexes FollowSymLinks MultiViews
+		AllowOverride None
+		Require all granted
+	</Directory>
+	ErrorLog /www/www.smartlearn.dmz/err/error.log
+  LogLevel warn
+  CustomLog /www/www.smartlearn.dmz/err/access.log combined
+</VirtualHost>
+
+sudo a2ensite www.smartlearn.dmz.conf
+sudo systemctl reload apache2
