@@ -1,1 +1,42 @@
-test  123
+###    ###   ###   ###   ###
+
+###    SSH_Key_Gen       ###
+
+###    ###   ###   ###   ###
+
+// Key Generieren Lassen
+ssh-keygen
+Enter file in which to save the key (/home/vmadmin/.ssh/id_rsa):        // Mit Enter Bestätigen
+Enter passphrase (empty for no passphrase):                             // Passwort setzen
+Enter same passphrase again:                                            // Passwort erneut wiederholen
+Your identification has been saved in /home/vmadmin/.ssh/id_rsa         // Private Key Location
+Your public key has been saved in /home/vmadmin/.ssh/id_rsa.pub         // Public Key Location
+
+The key fingerprint is:
+SHA256:r8tOzhZBRD2o1xc0R7UhqC+uylMsvNYV+ABB36OPnUE vmadmin@vmLP1.smartlearn.lan
+The key's randomart image is:
++---[RSA 3072]----+
+|    .o.ooo .+ooo.|
+|     .. + o..o. o|
+|      .+.E.. . . |
+|      .o=oo .    |
+|    . .oSoo.     |
+|     o o==o.     |
+|      =.+=o      |
+|    .+ *.o       |
+|    .oo+O.       |
++----[SHA256]-----+
+
+// Kann Ignoriert werden ist bei jedem Key inviduell
+
+der Key befindet sich nun im /home/vmadmin/.ssh
+
+
+
+
+###    ###   ###   ###   ###
+
+###    SSH_Copy_Key      ###
+
+###    ###   ###   ###   ###
+ssh-copy-id -i ~/.ssh/id_rsa.pub vmadmin@<ip>
