@@ -1,5 +1,4 @@
 ### Disk Partition Hinzufügen ###
-
 fdisk /dev/sdb
 n   --> Enter
 p   --> Enter
