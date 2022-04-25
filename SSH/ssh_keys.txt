@@ -39,4 +39,5 @@ der Key befindet sich nun im /home/vmadmin/.ssh
 ###    SSH_Copy_Key      ###
 
 ###    ###   ###   ###   ###
+
 ssh-copy-id -i ~/.ssh/id_rsa.pub vmadmin@<ip>
