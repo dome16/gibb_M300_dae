@@ -48,3 +48,5 @@ ECDSA key fingerprint is SHA256:ZaiwK3jAtUShyuBXjZxZvLhod3iMexnR3hWc5usQw7w.
 Are you sure you want to continue connecting (yes/no/[fingerprint])?
 
 // yes eintippen und Enter, Falls die Verbindung nich funktioniert das Netz nicht richtig.
+
+vmadmin@192.168.220.13's password:                                                                  // Passwort des Benutzer vmadmin auf der vmls3 eingeben
