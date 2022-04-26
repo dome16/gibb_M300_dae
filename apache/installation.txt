@@ -123,7 +123,7 @@ sudo vi /etc/apache2/sites-available/www.smartlearn.dmz.conf		// VirtualHost Con
         CustomLog /www/www.smartlearn.dmz/err/access.log combined
 </VirtualHost>
 
-sudo a2ensite ku2.smartlearn.lan.conf					// Seite mit a2ensite enablen (erstellt symlink im Ordner /etc/apache2/sites-enabled)
+sudo a2ensite www.smartlearn.dmz.conf					// Seite mit a2ensite enablen (erstellt symlink im Ordner /etc/apache2/sites-enabled)
 sudo systemctl restart apache2.service					// Apache2 neustarten (aufpassen bei Produktiven systemen reload verwenden)
 
 // Optional
