@@ -1,4 +1,0 @@
-# Installation bind 9
-ping 1.1.1.1
-sudo apt -y update && sudo apt -y upgrade
-sudo apt -y install bind9
