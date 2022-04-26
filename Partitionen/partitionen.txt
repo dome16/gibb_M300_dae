@@ -1,18 +1,24 @@
 ### Disk Partition Hinzufügen ###
 fdisk /dev/sdb
-n   --> Enter
-p   --> Enter
-1   --> Enter
-1   --> Enter
-130 --> Enter
-w   --> Enter
+n               --> Enter
+p               --> Enter
+1               --> Enter
+Anfangsziffer   --> Enter
+Endziffer       --> Enter
+w               --> Enter
 
 ### Partition Formatieren ###
 mkfs.ext4 /dev/sdb1       //mkfs.<dateiformat>  /dev/<sd**>
 
 ### Ordner für das Mounten erstellen ###
-mkdir www
+sudo mkdir /www
+
+### Blockid der Partition Kopieren ###
+sudo blkid
 
 ### /etc/fstab Bearbeiten für das Permanente mounten ###
-/dev/sdb1 /www ext4 defaults 1 2
+/dev/sdb1 /www ext4 defaults 0 0
+
+// Andere Möglichkeit
+UUID=uuid /www ext4 defaults 0 0
 mount -a
