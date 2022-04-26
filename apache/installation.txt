@@ -1,6 +1,24 @@
 ###    ###   ###   ###   ###
 
-###    VMLS3 Config      ###
+###    VMLS3 Bind	 ###
+
+###    ###   ###   ###   ###
+
+// Folgende Einträge im File db.smartlearn.lan Hinzufügen:
+www     IN      A       192.168.210.65					
+ku1     IN      A       192.168.210.65
+ku2     IN      A       192.168.210.65
+
+// Folgende Einträge im File db.smartlearn.dmz Hinzufügen:
+www     IN      A       192.168.220.13
+
+sudo systemctl restart bind9.service					// Bind9 Neustarten damit die Files neu gezogen werden (TTL niedrig setzen)
+
+
+
+###    ###   ###   ###   ###
+
+###    VMLS5 Config      ###
 
 ###    ###   ###   ###   ###
 	
