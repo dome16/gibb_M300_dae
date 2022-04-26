@@ -1,1 +1,64 @@
-test 123
+###    ###   ###   ###   ###
+
+###    VMLS3 Bind	       ###
+
+###    ###   ###   ###   ###
+
+Sudo apt -y install bind9                   // Mit Apt Bind9 installieren (-y --> Fragen automatisch mit yes beantworten)
+
+// Optional in der Anleitung wird es nicht gemacht
+cd /etc/bind/                                         // In das Bind Konfigurations Directory wechseln
+
+sudo vi /etc/bind/named.conf.options                  // named.conf.options bearbeiten
+
+// File mit folgenem Inhalt Ergänzen:
+acl goodclients {
+        192.168.220.0/24;       // Definition .220 er Netz
+        192.168.210.0/24;       // Definition .210 er Netz
+        localhost;              // sollte immer dabei sein
+        localnets;
+};
+
+options {
+        directory "/var/cache/bind";                            // Cache DIrectory vom Bind
+        allow-query { goodclients; };                           // Anfragen aus dem Angegebenen Netzen werden angenommen
+        forwarders { 8.8.8.8; };                                // Hier Zuhause mit 8.8.8.8 in der GIBB mit dem GIBB Forwarder ergänzen
+        dnssec-validation auto;                                 // Erhöt die Sicherheit des DNS
+        listen-on { 127.0.0.1; 192.168.220.13; };               // Localhost und IP Addresse vom DNS Master Server
+        allow-recursion {
+                192.168.210.0/24;                               // Da Beide Zonen rächt ähndlich sind sollte das nicht fehlen
+                192.168.220.0/24;
+        };
+};
+
+sudo vi /etc/named/named.conf.local                    // named.conf.options bearbeiten
+
+// File mit folgenem Inhalt Ergänzen:
+//
+// Do any local configuration here
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";
+
+zone "smartlearn.dmz" {
+type master;
+file "/etc/bind/db.smartlearn.dmz";
+};
+
+zone "smartlearn.lan" {
+type master;
+file "/etc/bind/db.smartlearn.lan";
+};
+
+zone "210.168.192.in-addr.arpa" {
+type master;
+file "/etc/bind/db.210.168.192.in-addr.arpa";
+};
+
+zone "220.168.192.in-addr.arpa" {
+type master;
+file "/etc/bind/db.220.168.192.in-addr.arpa";
+};
+
