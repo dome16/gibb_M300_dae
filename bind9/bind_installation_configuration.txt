@@ -1,6 +1,6 @@
 ###    ###   ###   ###   ###
 
-###    VMLS3 Bind	       ###
+###    VMLS3 Bind	 ###
 
 ###    ###   ###   ###   ###
 
@@ -130,4 +130,17 @@ $TTL    3M
 @       IN      NS      vmls3.smartlearn.dmz.
 1       IN      PTR     vmlf1.smartlearn.dmz.
 13      IN      PTR     vmls3.smartlearn.dmz.
+
+###    ###   ###   ###   ###    ###
+
+###    VMLS3 Bind  Testen	###
+
+###    ###   ###   ###   ###    ###
+
+named-checkconf                                                         // überprüft die Konfiguration auf fehler --> Kein Output ist  gut
+
+named-checkzone smartlearn.lan /etc/bind/db.smartlearn.lan              // Zonen File überprüfen auf fehler und ob es richtig ladet
+named-checkzone smartlearn.dmz /etc/bind/db.smartlearn.dmz
+named-checkzone 210.168.192.in-addr.arpa /etc/bind/db.210.168.192.in-addr.arpa
+named-checkzone 220.168.192.in-addr.arpa /etc/bind/db.220.168.192.in-addr.arpa
 
