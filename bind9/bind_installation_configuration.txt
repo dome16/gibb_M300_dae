@@ -144,3 +144,23 @@ named-checkzone smartlearn.dmz /etc/bind/db.smartlearn.dmz
 named-checkzone 210.168.192.in-addr.arpa /etc/bind/db.210.168.192.in-addr.arpa
 named-checkzone 220.168.192.in-addr.arpa /etc/bind/db.220.168.192.in-addr.arpa
 
+// Erwarteter Output
+zone 210.168.192.in-addr.arpa/IN: loaded serial 1
+OK
+
+systemd-resolved --status
+
+// Erwarteter Output
+Current DNS Server: 192.168.220.13
+         DNS Servers: 192.168.220.13
+          DNS Domain: smartlearn.dmz
+
+dig @192.168.220.13 vmls3.smartlearn.dmz
+dig @192.168.220.13 vmlf1.smartlearn.dmz
+dig @192.168.220.13 vmlp1.smartlearn.lan
+dig @192.168.220.13 vmlf1.smartlearn.lan
+
+nslookup vmls3.smartlearn.dmz
+nslookup vmlf1.smartlearn.dmz
+nslookup vmlf1.smartlearn.lan
+nslookup vmlp1.smartlearn.lan
