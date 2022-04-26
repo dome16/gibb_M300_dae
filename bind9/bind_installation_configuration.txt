@@ -62,3 +62,24 @@ type master;
 file "/etc/bind/db.220.168.192.in-addr.arpa";
 };
 
+sudo touch /etc/bind/db.smartlearn.lan                                     // Zonefiles erstellen (Forwardzonefile)
+sudo touch /etc/bind/db.smartlearn.dmz
+sudo touch /etc/bind/db.210.168.192.in-addr.arpa                           // Zonefiles erstellen (Reversezonefile)
+sudo touch /etc/bind/db.220.168.192.in-addr.arpa
+
+sudo vi /etc/bind/db.smartlearn.lan                                     // Ersts Zonefile Bearbeiten
+
+// File mit folgenem Inhalt Ergänzen:
+$TTL    3M                                                                  // TTL --> Time To Live (da wir daran arbeiten recht klein)
+@       IN      SOA     vmls3.smartlearn.dmz. root.smartlearn.dmz. (
+                              1         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                          86400 )       ; Negative Cache TTL
+;
+        IN      A       192.168.220.13
+@       IN      NS      vmls3.smartlearn.dmz.
+vmlp1   IN      A       192.168.210.31
+vmlf1   IN      A       192.168.210.1
+vmls5   IN      A       192.168.210.65
