@@ -67,7 +67,7 @@ sudo touch /etc/bind/db.smartlearn.dmz
 sudo touch /etc/bind/db.210.168.192.in-addr.arpa                           // Zonefiles erstellen (Reversezonefile)
 sudo touch /etc/bind/db.220.168.192.in-addr.arpa
 
-sudo vi /etc/bind/db.smartlearn.lan                                     // Ersts Zonefile Bearbeiten
+sudo vi /etc/bind/db.smartlearn.lan                                     // Ersts Zonefile Bearbeiten (von hostname zu IP)
 
 // File mit folgenem Inhalt Ergänzen:
 $TTL    3M                                                                      // TTL --> Time To Live (da wir daran arbeiten recht klein)
@@ -83,3 +83,51 @@ $TTL    3M                                                                      
 vmlp1   IN      A       192.168.210.31                                          // A Records aller Clients in diesem Netz
 vmlf1   IN      A       192.168.210.1
 vmls5   IN      A       192.168.210.65
+
+sudo vi /etc/bind/db.smartlearn.dmz
+
+// File mit folgenem Inhalt Ergänzen:
+$TTL    3M
+@       IN      SOA     vmls3.smartlearn.dmz. root.smartlearn.dmz. (
+                              1         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                          86400 )       ; Negative Cache TTL
+;
+        IN      A       192.168.220.13
+@       IN      NS      vmls3.smartlearn.dmz.
+vmls3   IN      A       192.168.220.13
+vmlf1   IN      A       192.168.220.1
+
+sudo vi /etc/bind/db.210.168.192.in-addr.arpa                                   // Erstes Reverse Zonefile Berabeiten (von IP zu Hostname --> fqdn)
+
+// File mit folgenem Inhalt Ergänzen:
+$TTL    3M
+@       IN      SOA     vmls3.smartlearn.dmz. root.smartlearn.dmz. (
+                              1         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                          86400 )       ; Negative Cache TTL
+;
+@       IN      NS      vmls3.smartlearn.dmz.
+1       IN      PTR     vmlf1.smartlearn.lan.
+31      IN      PTR     vmlp1.smartlearn.lan.
+65      IN      PTR     vmls5.smartlearn.lan.
+
+sudo vi /etc/bind/db.220.168.192.in-addr.arpa
+
+// File mit folgenem Inhalt Ergänzen:
+$TTL    3M
+@       IN      SOA     vmls3.smartlearn.dmz. root.smartlearn.dmz. (
+                              1         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                          86400 )       ; Negative Cache TTL
+;
+@       IN      NS      vmls3.smartlearn.dmz.
+1       IN      PTR     vmlf1.smartlearn.dmz.
+13      IN      PTR     vmls3.smartlearn.dmz.
+
