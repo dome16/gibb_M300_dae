@@ -131,6 +131,42 @@ $TTL    3M
 1       IN      PTR     vmlf1.smartlearn.dmz.
 13      IN      PTR     vmls3.smartlearn.dmz.
 
+sudo systemctl restart bind9.service                                            // Service Neustarten Zuerst checkfile und chekconf aus Tests ausführen
+
+###    ###   ###   ###   ###    ###     ###
+
+###    VMLP1 und LS3 DNS  Settings	###
+
+###    ###   ###   ###   ###    ###     ###
+
+!!!!!! vmls3 !!!!!!     !!!!!! vmls3 !!!!!!     !!!!!! vmls3 !!!!!!
+
+sudo vi /etc/netplan/00-eth0.yaml
+
+// File mit folgenem Inhalt Ergänzen:                                           // Formatierung extrem wichtig !!!
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    eth0:
+      addresses: [ 192.168.220.13/24 ]
+      gateway4: 192.168.220.1
+      nameservers:
+        search: [ smartlearn.dmz ]
+        addresses: [ 192.168.220.13 ]
+
+sudo netplan apply                                                              // Netplan applyen damit die Konfiguration angenommen wird
+
+!!!!!! vmlp1 !!!!!!     !!!!!! vmlp1 !!!!!!     !!!!!! vmlp1 !!!!!!
+
+1. Oben Rechts auf das Netzwerk
+2. Kabelgebungen verbunden
+3. LAN-Einstellungen
+4. IPv4
+5. DNS Hinzufügen / 192.168.220.13
+6. Adapter neustarten
+7. nslookup www.google.ch
+
 ###    ###   ###   ###   ###    ###
 
 ###    VMLS3 Bind  Testen	###
