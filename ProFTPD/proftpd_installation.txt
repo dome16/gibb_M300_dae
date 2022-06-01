@@ -1,1 +1,13 @@
-test
+# ProFTPD installieren mit Paketemanager apt
+sudo apt-get install proftpd-basic
+
+# Conffile Bearbeiten
+sudo vi /etc/proftpd/proftpd.conf
+
+# Mit folgendem Inhalt ergänzen
+
+
+# User anlegen
+cd /etc/proftpd/
+
+sudo ftpasswd --passwd --name ftpuser --uid 1001 --home /pfad/zum/userdir --shell /bin/false
