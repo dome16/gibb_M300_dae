@@ -1,1 +1,27 @@
-test
+# netplan Konfiguration bearbeiten
+sudo vi /etc/netplan/00-eth0.yaml
+
+# netplan sollte wie gefolgt ausehen
+
+//
+
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    eth0:
+      addresses: [ 192.168.220.13/24 ]
+      gateway4: 192.168.220.1
+      nameservers:
+        search: [ smartlearn.dmz, smartlearn.lan ]
+        addresses: [ 192.168.220.13 ]
+
+//
+
+# netplan anwenden
+sudo netplan apply
+
+# Überprüfen
+ping vmlp1    --> sollte ganzen namen angeben aber Pakete kommen nicht an DMZ zu LAN
+ping vmlf1    --> Muss zwingend Packete zurück geben
+ping vmls4    --> Muss zwingend Packete zurück geben wenn sie gestartet ist
