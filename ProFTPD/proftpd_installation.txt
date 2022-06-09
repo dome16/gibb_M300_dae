@@ -119,7 +119,7 @@ Include /etc/proftpd/modules.conf
 UseIPv6                         on
 IdentLookups                    off
 
-ServerName                      "sftp.smartlearn.dmz"
+ServerName                      "sftp.smartlearn.lan"
 DisplayLogin                    "Willkomen auf den FTP Server des M300"
 ServerType                              standalone
 DeferWelcome                    off
