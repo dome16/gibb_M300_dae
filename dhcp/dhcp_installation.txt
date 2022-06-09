@@ -1,3 +1,10 @@
+### ### ### ### ### ### ###
+###                     ###
+###   Konfig vmLs4      ###
+###                     ###
+### ### ### ### ### ### ###
+
+
 // Maschine Aktuallisieren
 sudo apt -y update && sudo apt -y upgrade
 
@@ -54,4 +61,37 @@ host vmLS5 {
 }
 -------------------------------
 
+
+### ### ### ### ### ### ###
+###                     ###
+###   Konfig vmLs3      ###
+###                     ###
+### ### ### ### ### ### ###
+
+// Bind named.conf.local bearbeiten
+sudo vi /etc/bind/named.conf.local
+
+# Folgende Zeilen bei smartlearn.lan und smartlearn.dmz Hinzufügen
+-------------------------------
+zone "smartlearn.dmz" {
+type master;
+file "/etc/bind/db.smartlearn.dmz";
+allow-update { key rndc-key; };
+};
+
+zone "smartlearn.lan" {
+type master;
+file "/etc/bind/db.smartlearn.lan";
+allow-update { key rndc-key; };
+};
+-------------------------------
+
+// rndc Key erstellen usw...
+sudo rndc-confgen
+
+# Ausgabe Kopieren
+
+// ausgabe in file /etc/bind/rncd.conf
+sudo vi /etc/bind/rndc.conf
+2. Kopierte Elemente einfügen
 
