@@ -95,3 +95,44 @@ sudo rndc-confgen
 sudo vi /etc/bind/rndc.conf
 2. Kopierte Elemente einfügen
 
+// File für Transfer in /home/vmadmin deponieren
+sudo cp /etc/bind/rndc.conf /home/vmadmin/rndc.conf
+sudo chown vmadmin:vmadmin rndc.conf
+
+// Berechtigungen setzen
+sudo chmod 660 /etc/bind/rndc.conf
+sudo chown root:bind /etc/bind/rndc.conf
+
+
+### ### ### ### ### ### ###
+###                     ###
+###   Konfig vmLs4      ###
+###                     ###
+### ### ### ### ### ### ###
+
+// File rndc.conf von vmls3 kopieren
+sudo vi /etc/dhcp/rndc.conf
+2. Inhalt einfügen (oder mit scp)
+sudo chmod 660 /etc/dhcp/rndc.conf
+
+// dhcp conf überarbeiten
+
+# Folgende Zeilen Hinzufügen
+-------------------------------
+include "/etc/dhcp/rndc.key";
+
+ddns-update-style interim;
+ddns-updates on;
+ignore client-updates;
+update-static-leases on;
+
+zone smartlearn.lan. {
+        primary 192.168.220.13;
+        key rndc-key;
+}
+
+zone 210.168.192.in-addr.arpa. {
+        primary 192.168.220.13;
+        key rndc-key;
+}
+-------------------------------
