@@ -1,1 +1,57 @@
-test
+// Maschine Aktuallisieren
+sudo apt -y update && sudo apt -y upgrade
+
+// ISC-DHCP installieren
+sudo apt-get install isc-dhcp-server
+
+// mit ifconfig Netzwerk interface herausfinden
+1. ifconfig
+2. Interface Namen Kopieren
+
+// /etc/default/isc-dhcp-server interface überprüfen
+sudo vi /etc/default/isc-dhcp-server
+
+# Folgende Zeilen Hinzufügen (Interface Namen dementschprechen anpassen)
+-------------------------------
+INTERFACESv4="eth0"
+INTERFACESv6="eth0"
+-------------------------------
+
+// MAC Adressen von Statischen IPs Herausfinden (mac in Textfile speichhern)
+1. ssh auf entsprechende Maschine
+2. wenn smartlearn .bashrc wird die mac automatisch Unten Rechhts ausgegeben
+3. Nicht smartlearn .bashrc (ifconfig |  ether .... kopieren)
+
+// DHCP.conf File Bearbeiten
+sudo vi /etc/dhcp/dhcpd.conf
+
+# Folgende Zeilen Hinzufügen (Interface Namen dementschprechen anpassen)
+-------------------------------
+option domain-name "smartlearn.lan";
+option domain-search "smartlearn.lan";
+option domain-name-servers ns.smartlearn.dmz;
+option routers 192.168.210.1;
+option broadcast-address 192.168.210.255;
+
+default-lease-time 600;
+max-lease-time 7200;
+
+ddns-update-style none;
+
+authoritative;
+
+log-facility local7;
+
+#Statische IP Adressen
+subnet 192.168.210.0 netmask 255.255.255.0 {
+        range 192.168.210.100 192.168.210.200;
+}
+
+host vmLS5 {
+        hardware ethernet 00:50:56:00:24:41;
+        fixed-address 192.168.210.65;
+        option host-name "vmLS5";
+}
+-------------------------------
+
+
