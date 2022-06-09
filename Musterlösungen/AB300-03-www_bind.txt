@@ -1,1 +1,41 @@
-test
+### Musterlösung Apache ###
+
+apt-get update
+apt-get upgrade
+apt-get install apache2
+
+sudo vi /etc/apache2/apache2.conf
+
+// Folgenden Inhalt ergänzen
+
+<Directory "/www">
+  Options Indexes FollowSymLinks
+  Require all granted
+</Directory>
+
+// File für Virtualhost erstellen
+sudo touch /etc/apache2/sites-avaiable/<hostingname>.conf
+
+// Folgenden Inhalt ergänzen
+
+<VirtualHost *:80>
+  ServerName    fqdn
+  ServerAlias   alias name (www.example.ch)
+  ServerAdmin   email von Admin (webmaster@example.ch)
+  DocumentRoot  /www/pfad/zur/destination
+  ErrorDocument 404 /err/404.html
+  ErrorLog      ${APACHE_LOG_DIR}/example.lan-error.log
+  CustomLog     ${APACHE_LOG_DIR}/example.lan-acces.log combined
+</VirtualHost>
+
+// User und Berechtigungen setzen auf Folder
+sudo groupadd wwwadmin
+sudo usermod -aG wwwadmin vmadmin
+sudo chmod -R ug+rwX,o-rw /www/*
+sudo chown -R www-data:wwwadmin /www/*
+
+// Apache site enablen und apache2 neustarten
+sudo a2ensite /etc/apache2/sites-avaiable/<hostingname>.conf
+sudo systemclt restart apache2.service
+
+// Nicht Vergessen DNS Einträge einzufügen
