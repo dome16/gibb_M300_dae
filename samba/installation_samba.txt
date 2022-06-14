@@ -161,6 +161,12 @@ testparm -vs | grep ladiesplace
 testparm -vs | grep tuxplanet
 testparm -vs | grep testshare
 
+### ### ### ### ### ### ###
+###                     ###
+###   Konfig vmlp1      ###
+###                     ###
+### ### ### ### ### ### ###
+
 // testen in GUI
 1. smb://192.168.210.64/ (verbinden)
 2. user und password und Workgroup angeben
