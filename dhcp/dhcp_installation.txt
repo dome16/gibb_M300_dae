@@ -122,8 +122,8 @@ sudo rndc-confgen
 # Ausgabe Kopieren
 
 // Berechtigungen setzen
-sudo chmod 660 /etc/bind/rndc.conf
-sudo chown root:bind /etc/bind/rndc.conf
+sudo chmod 660 /etc/bind/rndc.key
+sudo chown root:bind /etc/bind/rndc.key
 
 
 ### ### ### ### ### ### ###
@@ -135,7 +135,7 @@ sudo chown root:bind /etc/bind/rndc.conf
 // File rndc.conf von vmls3 kopieren
 sudo vi /etc/dhcp/rndc.key
 2. Inhalt einfügen (oder mit scp)
-sudo chmod 660 /etc/dhcp/rndc.conf
+sudo chmod 660 /etc/dhcp/rndc.key
 
 
 // Services neustarten
