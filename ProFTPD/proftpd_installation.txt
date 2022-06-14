@@ -40,7 +40,7 @@ ListOptions                     "-l"
 
 DenyFilter                      \*.*/
 
-DefaultRoot                     /www/www.smartlearn.dmz/
+DefaultRoot                     ~
 Port                            21
 
 <IfModule mod_dynmasq.c>
