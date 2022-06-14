@@ -31,7 +31,7 @@ options {
         };
 };
 
-sudo vi /etc/named/named.conf.local                    // named.conf.options bearbeiten
+sudo vi /etc/bind/named.conf.local                    // named.conf.options bearbeiten
 
 // File mit folgenem Inhalt Ergänzen:
 //
