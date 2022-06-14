@@ -1,1 +1,24 @@
-test
+// dhcp sample
+
+network:
+    version: 2
+    renderer: networkd
+    ethernets:
+        enp3s0:               (Interface anpassen und und Kommentar Löschen)
+            dhcp4: true
+            
+// static
+
+network:
+    version: 2
+    renderer: networkd
+    ethernets:
+        enp3s0:             (Interface anpassen und und Kommentar Löschen)
+            addresses:
+                - 10.10.10.2/24
+            nameservers:
+                search: [mydomain, otherdomain]
+                addresses: [10.10.10.1, 1.1.1.1]
+            routes:
+                - to: default
+                  via: 10.10.10.1
