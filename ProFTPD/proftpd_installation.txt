@@ -94,6 +94,8 @@ Include /etc/proftpd/tls.conf
 ------------------------------------------------------------------------------------
 
 # User anlegen
+sudo useradd -m ftpuser
+
 cd /etc/proftpd/
 
 sudo ftpasswd --passwd --name ftpuser --uid 1001 --home /pfad/zum/userdir --shell /bin/false
