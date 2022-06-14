@@ -140,7 +140,7 @@ ListOptions                     "-l"
 
 DenyFilter                      \*.*/
 
-DefaultRoot                     /www/
+DefaultRoot                     ~
 Port                            21
 
 <IfModule mod_dynmasq.c>
