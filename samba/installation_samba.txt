@@ -147,8 +147,16 @@ Folgenden Inhalt einfügen:
    create mask = 0770
    directory mask = 0770
    guest ok =  no
-   -----------------------------------------------
+-----------------------------------------------
    
-   // samba neu starten
-   sudo systemctl restart smbd.service
+// samba neu starten
+sudo systemctl restart smbd.service
    
+// testen
+testparm -vs | grep tuxladies
+testparm -vs | grep music
+testparm -vs | grep scratch
+testparm -vs | grep mensplace
+testparm -vs | grep ladiesplace
+testparm -vs | grep tuxplanet
+testparm -vs | grep testshare
