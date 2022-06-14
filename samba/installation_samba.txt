@@ -1,1 +1,154 @@
-test
+### ### ### ### ### ### ###
+###                     ###
+###   Konfig vmls4      ###
+###                     ###
+### ### ### ### ### ### ###
+
+// samba installieren
+sudo apt-get -y install samba
+
+// script im home erstellen
+sudo touch samba_share.sh
+sudo vi samba_share.sh
+
+Folgenden Inhalt einfügen:
+-----------------------------------------------
+#!/bin/bash
+PASSWORT="sml12345"
+
+sudo groupadd tuxies
+sudo groupadd tuxladies
+sudo groupadd tuxmens
+sudo groupadd violenttux
+
+sudo useradd -m -p $PASSWORT -g tuxies -G tuxladies,violenttux laratux
+sudo useradd -m -p $PASSWORT -g tuxies -G tuxladies cutetux
+sudo useradd -m -p $PASSWORT -g tuxies -G tuxmens,violenttux mrtux
+sudo useradd -m -p $PASSWORT -g tuxies -G tuxmens,violenttux rambotux
+sudo useradd -m -p $PASSWORT -g tuxies -G tuxmens,violenttux luketux
+sudo useradd -m -p $PASSWORT -g tuxies -G tuxmens slashtux
+sudo useradd -m -p $PASSWORT -g tuxies -G tuxladies divatux 
+
+sudo echo -ne "$PASSWORT\n$PASSWORT\n" | sudo smbpasswd -a -s laratux
+sudo echo -ne "$PASSWORT\n$PASSWORT\n" | sudo smbpasswd -a -s cutetux 
+sudo echo -ne "$PASSWORT\n$PASSWORT\n" | sudo smbpasswd -a -s mrtux 
+sudo echo -ne "$PASSWORT\n$PASSWORT\n" | sudo smbpasswd -a -s rambotux 
+sudo echo -ne "$PASSWORT\n$PASSWORT\n" | sudo smbpasswd -a -s luketux 
+sudo echo -ne "$PASSWORT\n$PASSWORT\n" | sudo smbpasswd -a -s slashtux 
+sudo echo -ne "$PASSWORT\n$PASSWORT\n" | sudo smbpasswd -a -s divatux 
+
+sudo mkdir /var/smbshr
+cd /var/smbshr
+sudo mkdir tuxplanet ladiesplace mensplace scratch music
+
+sudo chgrp tuxies tuxplanet
+sudo chgrp tuxladies ladiesplace
+sudo chgrp tuxmens mensplace
+sudo chgrp violenttux scratch
+sudo chgrp tuxies music
+sudo chmod 2770 tuxplanet ladiesplace mensplace scratch
+sudo chmod 2755 music
+-----------------------------------------------
+
+// script als sudo ausführen
+sudo ./samba_share.sh
+
+// smb.conf bearbeiten
+sudo vi /etc/samba/smb.conf
+
+Folgenden Inhalt einfügen:
+-----------------------------------------------
+[global]
+   workgroup = SMBWRKG 
+   netbios name = SMBSRV1
+   server string = SMBSRV1
+   log file = /var/log/samba/log.%m
+   max log size = 1000
+   encrypt  passwords = true
+   wins support = yes
+   local master = yes
+   preferred master = yes
+   logging = file
+   panic action = /usr/share/samba/panic-action %d
+   server role = standalone server
+   obey pam restrictions = yes
+   unix password sync = yes
+   passwd program = /usr/bin/passwd %u
+   passwd chat = *Enter\snew\s*\spassword:* %n\n *Retype\snew\s*\spassword:* %n\n *password\supdated\ssuccessfully* .
+   pam password change = yes
+   map to guest = bad user
+   usershare allow guests = yes
+
+[printers]
+   comment = All Printers
+   browseable = no
+   path = /var/spool/samba
+   printable = yes
+   guest ok = no
+   read only = yes
+   create mask = 0700
+
+[print$]
+   comment = Printer Drivers
+   path = /var/lib/samba/printers
+   browseable = yes
+   read only = yes
+   guest ok = no
+
+[testshare]
+   comment = testshare
+   path = /home/vmadmin/testshare
+   browsable = yes
+   read only = no
+   guest ok = no
+   valid users = vmadmin
+
+[tuxplanet]
+   path = /var/smbshr/tuxplanet
+   valid users = @tuxies
+   write list = @tuxies
+   read only = no
+   create mask = 0770
+   directory mask = 0770
+   guest ok =  no
+
+[ladiesplace]
+   path = /var/smbshr/ladiesplace
+   valid users = @tuxladies
+   write list = @tuxladies
+   read only = no
+   create mask = 0770
+   directory mask = 0770
+   guest ok =  no
+
+[mensplace]
+   path = /var/smbshr/mensplace
+   valid users = @tuxmens
+   write list = @tuxmens
+   read only = no
+   create mask = 0770
+   directory mask = 0770
+   guest ok =  no
+
+[scratch]
+   path = /var/smbshr/scratch
+   valid users = @violenttux
+   write list = @violenttux
+   read only = no
+   create mask = 0770
+   directory mask = 0770
+   guest ok =  no
+
+[music]
+   path = /var/smbshr/music
+   valid users = @tuxies
+   write list = @tuxies
+   read only = no
+   create mask = 0770
+   directory mask = 0770
+   guest ok =  no
+   -----------------------------------------------
+   
+   // samba neu starten
+   sudo systemctl restart smbd.service
+   
